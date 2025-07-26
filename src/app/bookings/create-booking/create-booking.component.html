@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ selectedPlace?.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center ion-padding">
+  <form (ngSubmit)="onBookPlace()" #form="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-input
+              label="First Name"
+              labelPlacement="floating"
+              placeholder="Enter First Name"
+              ngModel
+              name="first-name"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-input
+              label="Last Name"
+              labelPlacement="floating"
+              placeholder="Enter Last Name"
+              ngModel
+              name="last-name"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-select [ngModel]="'2'" name="guest-number">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item button="true" id="first-datepicker" detail="false">
+            <ion-input
+              label="From"
+              labelPlacement="floating"
+              [value]="dateFromValue | date : 'MMM dd YYYY'"
+              ngModel
+              name="dateFrom"
+              required
+            ></ion-input>
+
+            <ion-popover
+              trigger="first-datepicker"
+              class="popover-datetime"
+              showBackdrop="false"
+            >
+              <ng-template>
+                <ion-datetime
+                  [min]="selectedPlace?.availableFrom?.toISOString()"
+                  [max]="selectedPlace?.availableTo?.toISOString()"
+                  presentation="date"
+                  [(ngModel)]="dateFromValue"
+                  [ngModelOptions]="{standalone: true}"
+                >
+                </ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="3">
+          <ion-item button="true" id="second-datepicker" detail="false">
+            <ion-input
+              label="To"
+              labelPlacement="floating"
+              [value]="dateToValue | date : 'MMM dd YYYY'"
+              ngModel
+              name="dateTo"
+              required
+            >
+            </ion-input>
+            <ion-popover
+              trigger="second-datepicker"
+              class="popover-datetime"
+              showBackdrop="false"
+            >
+              <ng-template>
+                <ion-datetime
+                  [min]="dateFromPopover"
+                  [max]="selectedPlace?.availableTo?.toISOString()"
+                  presentation="date"
+                  [(ngModel)]="dateToValue"
+                  [ngModelOptions]="{standalone: true}"
+                >
+                </ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            type="submit"
+            expand="block"
+            color="primary"
+            (click)="onBookPlace()"
+            >Book!</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

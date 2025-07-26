@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/places/tabs/discover"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isLoading ? 'Loading...' : place?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-grid class="ion-no-padding" *ngIf="!isLoading">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-no-padding">
+        <ion-img [src]="place.imageUrl"></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size-sm="6" offset-sm="3" class="ion-align-self-center">
+        <ion-item
+          lines="none"
+          class="ion-justify-content-center ion-align-items-center"
+        >
+          <ion-icon name="pricetag-outline"></ion-icon>
+          <ion-label class="ion-text-start ion-padding"
+            >₱{{ place.price | number:'1.2-2' }}</ion-label
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size-sm="6" offset-sm="3" class="ion-align-self-center">
+        <ion-item
+          lines="none"
+          class="ion-justify-content-center ion-align-items-center"
+        >
+          <ion-icon name="bed-outline"></ion-icon>
+          <ion-label class="ion-text-start ion-padding"
+            >{{ place.description }}</ion-label
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size-sm="6" offset-sm="3" class="ion-align-self-center">
+        <ion-item
+          lines="none"
+          class="ion-justify-content-center ion-align-items-center"
+        >
+          <ion-icon name="location"></ion-icon>
+          <ion-label class="ion-text-start ion-padding"
+            >{{ place.location.address }}</ion-label
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-no-padding">
+        <ion-img
+          role="button"
+          (click)="onShowFullMap()"
+          [src]="place.location.staticMapImageUrl"
+          class="location-image"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isBookable">
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <ion-button (click)="onBookPlace()" class="ion-margin" color="primary"
+          >Book</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

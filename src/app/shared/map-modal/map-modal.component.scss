@@ -1,0 +1,68 @@
+.map {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 150ms ease-in;
+  touch-action: none; /* prevents default browser gesture conflicts */
+}
+
+.map.visible {
+  opacity: 1;
+}
+
+.pac-card {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  font-family: Roboto;
+  padding: 0;
+}
+
+#placeInput-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.placeInput-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.placeInput-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#placeInput-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#placeInput-input:focus {
+  border-color: #4d90fe;
+}
+
+.hoverable-item {
+  cursor: pointer;
+
+  --background: transparent; // reset default
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    --background: #f0f0f0;
+  }
+}

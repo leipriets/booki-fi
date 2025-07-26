@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/places/tabs/offers"></ion-back-button>
+    </ion-buttons>
+    <ion-title>New Offer</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="onCreateOffer()"
+        [disabled]="!form.valid && !form.get('image')?.value"
+      >
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-input
+              label="Title"
+              labelPlacement="floating"
+              type="text"
+              autocomplete
+              autocorrect
+              formControlName="title"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-textarea
+              label="Short Description"
+              labelPlacement="floating"
+              rows="3"
+              formControlName="description"
+            ></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        *ngIf="!form.get('description')?.valid && form.get('description')?.touched"
+      >
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Description must be between 1 and 180 characters.</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-input
+              label="Price"
+              labelPlacement="floating"
+              type="number"
+              formControlName="price"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item button="true" id="first-datepicker" detail="false">
+            <ion-input
+              label="From"
+              labelPlacement="floating"
+              [value]="form.get('dateFrom')?.value | date:'dd/MM/yyyy'"
+            ></ion-input>
+
+            <ion-popover
+              trigger="first-datepicker"
+              class="popover-datetime"
+              showBackdrop="false"
+            >
+              <ng-template>
+                <ion-datetime
+                  min="2019-01-01"
+                  max="2025-12-31"
+                  presentation="date"
+                  formControlName="dateFrom"
+                  #dateFromPopover
+                >
+                </ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="3">
+          <ion-item button="true" id="second-datepicker" detail="false">
+            <ion-input
+              label="To"
+              labelPlacement="floating"
+              [value]="form.controls['dateTo'].value | date:'dd/MM/yyyy'"
+            >
+            </ion-input>
+            <ion-popover
+              trigger="second-datepicker"
+              class="popover-datetime"
+              showBackdrop="false"
+            >
+              <ng-template>
+                <ion-datetime
+                  min="2019-01-02"
+                  max="2025-12-31"
+                  presentation="date"
+                  formControlName="dateTo"
+                  #dateTopopover
+                >
+                </ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-location-picker
+            [showPreview]="!!form.get('location')?.value"
+            (locationPick)="onLocationPicked($event)"
+          ></app-location-picker>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-image-picker
+            [showPreview]="!!form.get('image')?.value"
+            (imagePick)="onImagePicked($event)"
+          ></app-image-picker>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

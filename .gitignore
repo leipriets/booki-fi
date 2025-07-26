@@ -68,3 +68,14 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+
+#Environments
+.env
+env-constants.ts
+
+#Android Bundle
+/android
+
+#functions private keys
+/functions

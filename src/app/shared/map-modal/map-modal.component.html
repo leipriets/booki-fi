@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCancel()"> {{ closeButtonText }} </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="false">
+  <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box" /> -->
+  <div class="map" #map></div>
+  <ion-searchbar
+    #searchInput
+    id="placeInput"
+    placeholder="Search"
+    [debounce]="1000"
+    (ionInput)="searchPlaces($event)"
+  ></ion-searchbar>
+  <ion-list *ngIf="predictions.length > 0">
+    <ion-item
+      *ngFor="let place of predictions"
+      (click)="selectPlace(place)"
+      class="hoverable-item"
+    >
+      {{ place.description }}
+    </ion-item>
+  </ion-list>
+</ion-content>

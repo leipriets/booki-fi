@@ -2,8 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { GOOGLE_MAP_KEY, FIREBASE_API_KEY } from './env-constants';
+
 export const environment = {
-  production: false
+  production: false,
+  googleMapsApiKey: GOOGLE_MAP_KEY,
+  firebaseAPIKey: FIREBASE_API_KEY
 };
 
 /*
